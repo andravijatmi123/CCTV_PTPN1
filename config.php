@@ -4,8 +4,28 @@
  * Support untuk development dan production environment
  */
 
+// Load .env file if exists
+$env_file = __DIR__ . '/.env';
+if (file_exists($env_file)) {
+    $lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0 || !strpos($line, '=')) {
+            continue;
+        }
+        list($key, $value) = explode('=', $line, 2);
+        $key = trim($key);
+        $value = trim($value, '\'"');
+        putenv("$key=$value");
+    }
+}
+
 // Detect environment
-$env = getenv('APP_ENV') ?: 'development';
+$env = getenv('APP_ENV');
+if ($env === false || $env === '') {
+    // Check if we're on production server based on hostname
+    $hostname = gethostname();
+    $env = (strpos($hostname, 'prod') !== false) ? 'production' : 'development';
+}
 
 if ($env === 'production') {
     // PRODUCTION SETTINGS
@@ -40,7 +60,9 @@ if ($env === 'production') {
 }
 
 // Set default timezone
-date_default_timezone_set($config['timezone']);
+if (function_exists('date_default_timezone_set')) {
+    date_default_timezone_set($config['timezone']);
+}
 
 return $config;
 ?>

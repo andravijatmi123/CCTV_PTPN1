@@ -5,9 +5,25 @@
  */
 
 try {
-    // Load configuration
-    $config = require 'config.php';
-    require 'Database.php';
+    // Load configuration with error handling
+    $config_file = __DIR__ . '/config.php';
+    if (!file_exists($config_file)) {
+        throw new Exception("Config file not found: $config_file");
+    }
+    
+    $config = require $config_file;
+    
+    if (!is_array($config) || empty($config['host'])) {
+        throw new Exception("Invalid configuration returned from config.php");
+    }
+    
+    // Load Database class
+    $db_class_file = __DIR__ . '/Database.php';
+    if (!file_exists($db_class_file)) {
+        throw new Exception("Database class not found: $db_class_file");
+    }
+    
+    require $db_class_file;
     
     // Initialize database
     $db = new Database($config);
