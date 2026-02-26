@@ -1,0 +1,192 @@
+/* --- VARIABEL WARNA --- */
+:root {
+    --dark-blue: #0b1120;
+    --card-blue: #1e293b;
+    --header-bg: #0f172a;
+    --accent-yellow: #ffff00;
+    --accent-green: #00ff00;
+    --text-gray: #94a3b8;
+}
+
+/* --- DASAR --- */
+* { 
+    box-sizing: border-box; 
+}
+
+body { 
+    background: var(--dark-blue); 
+    color: white; 
+    font-family: 'Segoe UI', Tahoma, sans-serif; /* Font modern untuk isi */
+    margin: 0; 
+    padding: 0;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
+}
+
+/* --- HEADER (Halaman Index & Unit) --- */
+header {
+    height: 110px; 
+    background: var(--header-bg); 
+    border-bottom: 4px solid #334155;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; /* Logo+Teks di kiri, Jam di kanan */
+    padding: 0 40px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+    font-family: 'Times New Roman', Times, serif; /* Font khusus header */
+}
+
+/* Pembungkus Logo & Teks */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Ukuran Logo PTPN */
+.logo-ptpn {
+    height: 70px; /* Atur tinggi logo */
+    width: auto;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));
+}
+
+/* Area Judul & Subtitle */
+.title-section {
+    display: flex;
+    flex-direction: column;
+}
+
+header h1 { 
+    color: var(--accent-yellow); 
+    margin: 0; 
+    font-size: 26px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+header p { 
+    color: var(--accent-green); 
+    margin: 2px 0 0 0; 
+    font-weight: bold; 
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Jam Digital di Kanan */
+.clock-display {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+/* --- GRID UNTUK INDEX.PHP (Menu Utama) --- */
+.main-grid {
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.kebun-card {
+    background: var(--card-blue); 
+    border-radius: 15px; 
+    padding: 30px;
+    text-align: center; 
+    text-decoration: none; 
+    color: white;
+    border: 2px solid transparent; 
+    transition: all 0.3s ease;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.kebun-card:hover {
+    border-color: var(--accent-green);
+    transform: translateY(-8px);
+    background: #24344d;
+}
+
+.icon { font-size: 50px; margin-bottom: 15px; }
+.name { font-size: 20px; font-weight: bold; color: var(--accent-yellow); margin-bottom: 15px; text-transform: uppercase; }
+
+.badge { 
+    background: #15803d; 
+    padding: 8px 15px; 
+    border-radius: 50px; 
+    font-size: 11px; 
+    font-weight: bold; 
+    border: 1px solid var(--accent-green);
+}
+
+/* --- GRID UNTUK UNIT.PHP (Monitoring) --- */
+.monitor-wrapper {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px;
+    padding: 20px;
+    overflow-y: auto;
+    background: #000; /* Background hitam untuk area kamera */
+}
+
+.cam-card { 
+    position: relative; 
+    background: #111; 
+    border: 1px solid #333; 
+    overflow: hidden; 
+    height: 350px; 
+}
+
+.cam-card iframe { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    background: #000; 
+}
+
+.cam-label { 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    background: rgba(0,0,0,0.7); 
+    font-size: 11px; 
+    padding: 8px 12px;
+    display: flex; 
+    align-items: center;
+    color: white;
+}
+
+.live-dot { 
+    height: 8px; 
+    width: 8px; 
+    background: red; 
+    border-radius: 50%; 
+    display: inline-block; 
+    margin-right: 8px; 
+    animation: blink 1s infinite; 
+}
+
+@keyframes blink { 
+    0%, 100% {opacity: 1} 
+    50% {opacity: 0.2} 
+}
+
+/* Custom Scrollbar */
+.monitor-wrapper::-webkit-scrollbar { width: 10px; }
+.monitor-wrapper::-webkit-scrollbar-track { background: #050a14; }
+.monitor-wrapper::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+.monitor-wrapper::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
